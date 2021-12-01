@@ -14,76 +14,86 @@ const state={
     [
         {
             id:1,
-            name: "beettroot",
-            price: 0.35
+            name: "beetroot",
+            price: 0.35,
+            amount: 0,
+          
           
         },
         {
             id:2,
             name: "carrot",
-            price: 0.35
-          
+            price: 0.35,
+            amount: 0
         },
         {
             id:3,
             name: "apple",
-            price: 0.35
+            price: 0.35,
+            amount: 0
           
         },
         {
             id:4,
             name: "apricot",
-            price: 0.35
+            price: 0.35,
+            amount: 0
           
         },
         {
             id:5,
             name: "avocado",
-            price: 0.35
+            price: 0.35,
+            amount: 0
           
         },
         {
             id:6,
             name: "bananas",
-            price: 0.35
+            price: 0.35,
+            amount: 0, 
           
         },
         {
             id:7,
             name: "bell-pepper",
-            price: 0.35
+            price: 0.35,
+            amount: 0
           
         },
         {
             id:8,
             name: "berry",
-            price: 0.35
+            price: 0.35,
+            amount: 0
           
         },
         {
             id:9,
             name: "blueberry",
-            price: 0.35
+            price: 0.35,
+            amount: 0
           
         },
         {
             id:10,
             name: "eggplant",
-            price: 0.35
+            price: 0.35,
+            amount: 0
           
         },
     ]
 }
+ 
 
 
 
 
+function createProductForStore(item){
 
+const   itemListUl= document.querySelector('header .item-list')
+console.log(itemListUl)
 
-
-function storeProducts(){
-
-const   itemListUl= document.querySelector('header.item-list')
 
 
 const liElementOfStore= document.createElement('li')
@@ -92,34 +102,44 @@ const iconsOfStore= document.createElement ('div')
 iconsOfStore.setAttribute('class', 'store--item-icon ')
  
 const imagesOfStore= document.createElement ('img')
-imagesOfStore.setAttribute ('src','/assets/icons/001-beetroot.svg')
-imagesOfStore.setAttribute ('alt', 'beetroot')
+imagesOfStore.setAttribute ('src',`assets/icons/${item.id<10?'00':'0'}${item.id}-${item.name}.svg`)
+imagesOfStore.setAttribute ('alt',`${item.name}`)
 
 
 iconsOfStore.append(imagesOfStore)
 
 const addTocartButton= document.createElement('button')
 addTocartButton.textContent= 'Add to cart'
+addTocartButton.addEventListener('click', function(){
+    createCard(item)
+})
 
 liElementOfStore.append (iconsOfStore, addTocartButton)
 itemListUl.append(liElementOfStore)
 
 }
-storeProducts()
+
+function renderStoreProducts(){
+for (const  item of state.items ){
+    createProductForStore(item)
+
+}
+}
+renderStoreProducts()
 
 
-function createCard(){
+function createCard(item){
 
     const   cartItemListUl= document.querySelector('main .item-list')
-
+ console.log(cartItemListUl)
 const cartItemListLi= document.createElement('li')
 
 const imagesOfCart= document.createElement ('img')
-imagesOfCart.setAttribute ('src','/assets/icons/001-beetroot.svg')
+imagesOfCart.setAttribute ('src',`assets/icons/${item.id<10?'00':'0'}${item.id}-${item.name}.svg`)
 imagesOfCart.setAttribute ('alt', 'beetroot')
 
 const textOfCart= document.createElement('p')
-textOfCart.textContent=" beetroot"
+textOfCart.textContent=item.name
 
 const cartButtonRemove=document.createElement('button')
 cartButtonRemove.setAttribute('class', 'quantity-btn remove-btn center')
@@ -132,8 +152,9 @@ cartButtonQuantity.textContent='1'
 const cartButtonAdd=document.createElement('button')
 cartButtonAdd.setAttribute('class', 'quantity-btn add-btn center')
 cartButtonAdd.textContent='+'
+console.log(cartButtonAdd)
 
-cartItemListLi.append(imagesOfCart,textOfCart,cartButtonRemove,cartButtonQuantity.cartButtonAdd)
+cartItemListLi.append(imagesOfCart,textOfCart,cartButtonRemove,cartButtonQuantity,cartButtonAdd)
 
 cartItemListUl.append(cartItemListLi)
 }
